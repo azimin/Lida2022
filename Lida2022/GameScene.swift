@@ -59,11 +59,17 @@ class GameScene: SKScene {
             
             self.jumpButton = button
         }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-//            if let player = self.childNode(withName: "//Player_Max") as? AnotherPlayer {
-//                player.showMessage(text: "Hi there Hi there Hi there Hi there Hi there Hi there")
-//            }
-//        })
+        
+        TalkController.shared.action = { action in
+            switch action {
+            case .message(let message):
+                self.activeFriend?.showMessage(text: message)
+            case .hideMessage:
+                self.activeFriend?.hideMessage()
+            case .playCoins:
+                self.playCoins()
+            }
+        }
     }
     
     var activeFriend: AnotherPlayer?
@@ -113,14 +119,18 @@ class GameScene: SKScene {
     func moveCharacter() {
         var isWalking = false
         
-        if virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value ?? 0 < -0.5 {
-            player.position.x -= 3
-            player.xScale = 0.5
-            isWalking = true
-        } else if virtualController?.controller?.extendedGamepad?.leftThumbstick.xAxis.value ?? 0 > 0.5 {
-            player.position.x += 3
-            player.xScale = -0.5
-            isWalking = true
+        for controller in self.activeControllers + [self.virtualController!.controller] {
+            
+            if controller?.extendedGamepad?.leftThumbstick.xAxis.value ?? 0 < -0.5 {
+                player.position.x -= 3
+                player.xScale = 0.5
+                isWalking = true
+            } else if controller?.extendedGamepad?.leftThumbstick.xAxis.value ?? 0 > 0.5 {
+                player.position.x += 3
+                player.xScale = -0.5
+                isWalking = true
+            }
+            
         }
         
         if isWalking {
@@ -147,18 +157,14 @@ class GameScene: SKScene {
         
         virtualController.controller?.extendedGamepad?.buttonA.valueChangedHandler = { (button, value, pressed) in
             if pressed {
-                self.activeFriend?.showMessage(text: "Hi there Hi there Hi there Hi there Hi there Hi there")
+                self.pressAButton()
             }
         }
 
         virtualController.controller?.extendedGamepad?.buttonB.valueChangedHandler = { (button, value, pressed) in
             if pressed {
                 // check if self.player is colliding with something
-                self.jumpButton?.removeFromParent()
-                if self.player.physicsBody?.allContactedBodies().first?.node != nil {
-                    print("Jump")
-                    self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 400))
-                }
+                self.pressBButton()
             }
         }
         
@@ -173,5 +179,59 @@ class GameScene: SKScene {
             return configuration
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(connectControllers), name: NSNotification.Name.GCControllerDidConnect, object: nil)
+    }
+    
+    var activeControllers: [GCController] = []
+    
+    @objc func connectControllers() {
+        for controller in GCController.controllers() {
+            activeControllers.append(controller)
+            
+            self.virtualController?.disconnect()
+            
+            controller.extendedGamepad?.buttonB.valueChangedHandler = { (button, value, pressed) in
+                if pressed {
+                    // check if self.player is colliding with something
+                    self.pressBButton()
+                }
+            }
+            
+            controller.extendedGamepad?.buttonA.valueChangedHandler = { (button, value, pressed) in
+                if pressed {
+                    // check if self.player is colliding with something
+                    self.pressAButton()
+                }
+            }
+        }
+    }
+    
+    func pressBButton() {
+        self.jumpButton?.removeFromParent()
+        if self.player.physicsBody?.allContactedBodies().first?.node != nil {
+            self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 400))
+        }
+    }
+    
+    func pressAButton() {
+        if let activeFriend = self.activeFriend {
+            TalkController.shared.talkToSomeone(name: activeFriend.name ?? "")
+        }
+    }
+    
+    func playCoins() {
+        // create node that play textures
+        let node = SKSpriteNode(imageNamed: "coins_50")
+        node.zPosition = 15
+        node.position = CGPoint(x: 400, y: 0)
+        node.setScale(self.size.height / node.size.height)
+        var frames: [SKTexture] = []
+        for i in 1..<105 {
+            frames.append(SKTexture(imageNamed: "coins_\(i)"))
+        }
+        self.addChild(node)
+        node.run(SKAction.animate(with: frames, timePerFrame: 0.03)) {
+            node.removeFromParent()
+        }
     }
 }
