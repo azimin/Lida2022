@@ -208,7 +208,9 @@ class GameScene: SKScene {
         for controller in GCController.controllers() {
             activeControllers.append(controller)
             
-            self.virtualController?.disconnect()
+            if (controller.vendorName == "Gamepad") {
+                self.virtualController?.disconnect()
+            }
             
             controller.extendedGamepad?.buttonB.valueChangedHandler = { (button, value, pressed) in
                 if pressed {
@@ -269,14 +271,35 @@ class GameScene: SKScene {
                 background.removeAllActions()
                 background.run(SKAction.repeatForever(SKAction.animate(with: self.bgAnimation2, timePerFrame: 0.06)))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
-                    background.removeFromParent()
-                    if let wall = self.childNode(withName: "//First_Blocker") {
-                        wall.removeFromParent()
-                    }
-                    self.alex.showMessage(text: "Добро пожаловать и проходи дальше")
-                    self.alex.isActionBlocked = false
+                    self.playFirework()
+                    let duration: TimeInterval = 0.3
+                    background.run(SKAction.fadeAlpha(to: 0, duration: duration))
+                    DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: {
+                        self.alex.showMessage(text: "Добро пожаловать и проходи дальше")
+                        background.removeFromParent()
+                        if let wall = self.childNode(withName: "//First_Blocker") {
+                            wall.removeFromParent()
+                        }
+                        self.alex.isActionBlocked = false
+                    })
                 })
             })
+        }
+    }
+    
+    func playFirework() {
+        // create node that play textures
+        let node = SKSpriteNode(imageNamed: "firework_0")
+        node.zPosition = 15
+        node.position = CGPoint(x: 730, y: 0)
+        node.setScale(self.size.height / node.size.height)
+        var frames: [SKTexture] = []
+        for i in 0..<74 {
+            frames.append(SKTexture(imageNamed: "firework_\(i)"))
+        }
+        self.addChild(node)
+        node.run(SKAction.animate(with: frames, timePerFrame: 0.06)) {
+            node.removeFromParent()
         }
     }
     

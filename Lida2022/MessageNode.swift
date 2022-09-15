@@ -25,7 +25,8 @@ class MessageNode: SKNode {
         self.addChild(node)
         
         let textNode = SKLabelNode(text: text)
-        textNode.fontName = "SanFranciscoDisplay-Bold"
+        textNode.fontName = "Chalkduster"
+        textNode.fontSize = 25
         textNode.numberOfLines = 0
         textNode.fontColor = .black
         textNode.preferredMaxLayoutWidth = 250
