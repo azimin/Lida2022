@@ -14,7 +14,7 @@ class GameScene: SKScene {
 //    private var label : SKLabelNode?
     
 //    var playerXPoint: CGFloat = 1000
-    var playerXPoint: CGFloat = 9500
+    var playerXPoint: CGFloat = -100
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
@@ -22,7 +22,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        enterLidalandShort()
+//        enterLidalandShort()
         
         self.connectVirtualController()
         
