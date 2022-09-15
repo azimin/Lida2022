@@ -14,7 +14,7 @@ class GameScene: SKScene {
 //    private var label : SKLabelNode?
     
 //    var playerXPoint: CGFloat = 1000
-    var playerXPoint: CGFloat = 2000
+    var playerXPoint: CGFloat = 3500
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
@@ -34,7 +34,7 @@ class GameScene: SKScene {
 //        }
         
         var frame = self.frame
-        frame.size.width += 3000
+        frame.size.width += 6000
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         self.physicsBody?.categoryBitMask = 0b0111
 
@@ -85,6 +85,8 @@ class GameScene: SKScene {
             case .playHahaSound:
                 let sound = SKAction.playSoundFileNamed("haha.mp3", waitForCompletion: false)
                 self.run(sound)
+            case .doMushroom:
+                self.doMushroom()
             }
         }
     }
@@ -150,11 +152,11 @@ class GameScene: SKScene {
             
             if controller?.extendedGamepad?.leftThumbstick.xAxis.value ?? 0 < -0.5 {
                 player.position.x -= 3
-                player.xScale = 0.5
+                player.xScale = self.palayerScale
                 isWalking = true
             } else if controller?.extendedGamepad?.leftThumbstick.xAxis.value ?? 0 > 0.5 {
                 player.position.x += 3
-                player.xScale = -0.5
+                player.xScale = -self.palayerScale
                 isWalking = true
             }
             
@@ -163,6 +165,13 @@ class GameScene: SKScene {
         if isWalking {
             self.camera?.position.x = player.position.x
             player.walking(shouldWalk: true)
+            
+            if self.mushroomExists, let assets = self.mushroomAsset {
+                if abs(assets.position.x - self.player.position.x) < 50 {
+                    self.eatMushroom()
+                }
+            }
+            
         } else {
             player.walking(shouldWalk: false)
         }
@@ -394,6 +403,66 @@ class GameScene: SKScene {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 7, execute: {
             self.kirillPostcard?.removeFromParent()
+        })
+    }
+    
+    var mushroomAsset: SKSpriteNode?
+    var mushroomExists: Bool = false
+    
+    var palayerScale: CGFloat = 0.5
+    
+    func eatMushroom() {
+        self.mushroomAsset?.removeFromParent()
+        self.mushroomExists = false
+        self.palayerScale = 1
+        
+        let isNegative = player.xScale < 0
+        
+        let scaleX = SKAction.scaleX(to: isNegative ? -1 : 1, duration: 0.35)
+        let scaleY = SKAction.scaleY(to: 1, duration: 0.35)
+        
+        self.player.run(scaleX)
+        self.player.run(scaleY)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4, execute: {
+            self.palayerScale = 0.5
+            let isNegative = self.player.xScale < 0
+            
+            let scaleX = SKAction.scaleX(to: isNegative ? -0.5 : 0.5, duration: 0.35)
+            let scaleY = SKAction.scaleY(to: 0.5, duration: 0.35)
+            
+            self.player.run(scaleX)
+            self.player.run(scaleY)
+        })
+    }
+    
+    func doMushroom() {
+        self.mushroomAsset?.removeFromParent()
+        self.mushroomExists = false
+        
+        let node = SKSpriteNode(imageNamed: "mushroom")
+        node.zPosition = 10
+        node.position = CGPoint(x: 3930, y: -200)
+        node.setScale(0)
+        self.addChild(node)
+        
+        let zoom = SKAction.scale(to: 0.65, duration: 0.8)
+        zoom.timingMode = .easeIn
+        
+        let move = SKAction.moveTo(x: 4100, duration: 0.8)
+        move.timingMode = .easeIn
+        
+        let moveY = SKAction.moveTo(y: -310, duration: 0.8)
+        moveY.timingMode = .easeIn
+        
+        node.run(zoom)
+        node.run(move)
+        node.run(moveY)
+        
+        self.mushroomAsset = node
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+            self.mushroomExists = true
         })
     }
 }
