@@ -14,13 +14,15 @@ class GameScene: SKScene {
 //    private var label : SKLabelNode?
     
 //    var playerXPoint: CGFloat = 1000
-    var playerXPoint: CGFloat = 200
+    var playerXPoint: CGFloat = 2000
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
     var jumpButton: SKNode?
     
     override func didMove(to view: SKView) {
+        
+        enterLidalandShort()
         
         self.connectVirtualController()
         
@@ -48,7 +50,7 @@ class GameScene: SKScene {
         
         self.alex = self.childNode(withName: "//Player_Alex") as? AnotherPlayer
         
-        let names: [String] = ["Player_Alex", "Player_Max", "Player_Shura"]
+        let names: [String] = Person.allCases.map({ $0.rawValue })
         for name in names {
             if let player = self.childNode(withName: "//" + name) as? AnotherPlayer {
                 self.friends.append(player)
@@ -78,6 +80,8 @@ class GameScene: SKScene {
                 self.showMickey()
             case .enterLidaland:
                 self.enterLidaland()
+            case .showPostcard:
+                self.showKirillPostcard()
             }
         }
     }
@@ -261,6 +265,18 @@ class GameScene: SKScene {
     
     var enterdLidaLand = false
     
+    func enterLidalandShort() {
+        TalkController.shared.enteredLidaLandFlag = true
+        
+        if let background = self.childNode(withName: "//Background_1") {
+            background.removeFromParent()
+        }
+        
+        if let wall = self.childNode(withName: "//First_Blocker") {
+            wall.removeFromParent()
+        }
+    }
+    
     func enterLidaland() {
         TalkController.shared.enteredLidaLandFlag = true
         self.alex.isActionBlocked = true
@@ -349,5 +365,23 @@ class GameScene: SKScene {
         node.run(scaleYAction)
         
         self.mickeyNode = node
+    }
+    
+    var kirillPostcard: SKSpriteNode?
+    
+    func showKirillPostcard() {
+        kirillPostcard?.removeFromParent()
+        
+        let node = SKSpriteNode(imageNamed: "Kirill_Postacard")
+        node.zPosition = 10
+        node.position = CGPoint(x: 2540, y: 200)
+        node.setScale(1.15)
+        self.addChild(node)
+        
+        self.kirillPostcard = node
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            self.kirillPostcard?.removeFromParent()
+        })
     }
 }

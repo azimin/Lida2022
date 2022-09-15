@@ -7,10 +7,11 @@
 
 import Foundation
 
-enum Person: String {
+enum Person: String, CaseIterable {
     case alex = "Player_Alex"
     case max = "Player_Max"
     case shura = "Player_Shura"
+    case kirillAv = "Player_Kirill"
 }
 
 class TalkController {
@@ -22,6 +23,7 @@ class TalkController {
         case enterLidaland
         case playCoins
         case showMickey
+        case showPostcard
     }
     
     var action: ((Action) -> Void)?
@@ -54,7 +56,9 @@ class TalkController {
             actions = maxActions()
         case .shura:
             actions = shuraActions()
-        default:
+        case .kirillAv:
+            actions = kirillAvActions()
+        case .none:
             actions = [[]]
             assertionFailure("No person")
         }
@@ -110,6 +114,20 @@ class TalkController {
             [.message(message: "Наконец-то тебе 16 и мы можем разговаривать на взрослые темы.")],
             [.message(message: "Как тебе инфляция в Британии?")],
             [.hideMessage, .playCoins]
+        ]
+    }
+    
+    func kirillAvActions() -> [[Action]] {
+        return [
+            [.message(message: "Самая добрая, умная, строгая,\nВы — эталон, образец, идеал.")],
+            [.message(message: "Вы покорили своими уроками\nВсех, кто вас с первого класса узнал.")],
+            [.message(message: "Чуткая, честная и справедливая −\nУченики так про вас говорят.")],
+            [.message(message: "Ваш день рождения — дата счастливая,\nКаждый поздравить Вас искренне рад.")],
+            [.message(message: "Счастья огромного Вам и терпения,\nРадости, света, здоровья, тепла.")],
+            [.message(message: "И бесконечного просто везения,\nИ чтоб зарплата росла и росла.")],
+            [.message(message: "Пусть берегут Вас в семье, как жемчужину,\nДарят заботу, уют и покой.")],
+            [.message(message: "Все это Вами, конечно, заслужено,\nЗа Ваш характер такой золотой.")],
+            [.hideMessage, .showPostcard]
         ]
     }
 }
