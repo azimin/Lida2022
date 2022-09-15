@@ -8,6 +8,7 @@
 import SpriteKit
 import GameplayKit
 import GameController
+import AVFoundation
 
 class GameScene: SKScene {
     
@@ -25,6 +26,8 @@ class GameScene: SKScene {
         enterLidalandShort()
         
         self.connectVirtualController()
+        
+        self.playMusic()
         
         // Get label node from scene and store it for use later
 //        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -100,7 +103,6 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         moveCharacter()
-        
         
         if (self.player.physicsBody?.velocity.dy ?? 0) < -200 {
             self.player.physicsBody?.collisionBitMask = 2
@@ -291,6 +293,8 @@ class GameScene: SKScene {
         if let wall = self.childNode(withName: "//First_Blocker") {
             wall.removeFromParent()
         }
+        
+        self.playMusic()
     }
     
     func enterLidaland() {
@@ -304,6 +308,8 @@ class GameScene: SKScene {
                 background.run(SKAction.repeatForever(SKAction.animate(with: self.bgAnimation2, timePerFrame: 0.06)))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
                     self.playFirework()
+                    self.playMusic()
+                    
                     let duration: TimeInterval = 0.3
                     background.run(SKAction.fadeAlpha(to: 0, duration: duration))
                     DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: {
@@ -498,7 +504,28 @@ class GameScene: SKScene {
         
         self.playFirework2()
         
+        self.musicPlayer?.stop()
+        
         let sound = SKAction.playSoundFileNamed("hb_song.mp3", waitForCompletion: false)
         self.run(sound)
+    }
+    
+    var musicPlayer: AVAudioPlayer?
+    
+    func playMusic() {
+        let url = Bundle.main.url(forResource: "bg_song", withExtension: "mp3")
+        
+        do {
+            self.musicPlayer = try AVAudioPlayer(contentsOf: url!)
+            self.musicPlayer?.numberOfLoops = -1
+            self.musicPlayer?.volume = 0.3
+            guard let musicPlayer = self.musicPlayer else { return }
+
+            musicPlayer.prepareToPlay()
+            musicPlayer.play()
+
+        } catch let error as NSError {
+            print(error.description)
+        }
     }
 }
