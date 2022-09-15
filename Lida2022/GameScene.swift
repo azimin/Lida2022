@@ -14,7 +14,7 @@ class GameScene: SKScene {
 //    private var label : SKLabelNode?
     
 //    var playerXPoint: CGFloat = 1000
-    var playerXPoint: CGFloat = 3500
+    var playerXPoint: CGFloat = 4500
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
@@ -34,7 +34,7 @@ class GameScene: SKScene {
 //        }
         
         var frame = self.frame
-        frame.size.width += 6000
+        frame.size.width += 11000
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         self.physicsBody?.categoryBitMask = 0b0111
 
