@@ -14,7 +14,7 @@ class GameScene: SKScene {
 //    private var label : SKLabelNode?
     
 //    var playerXPoint: CGFloat = 1000
-    var playerXPoint: CGFloat = 5500
+    var playerXPoint: CGFloat = 9500
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []

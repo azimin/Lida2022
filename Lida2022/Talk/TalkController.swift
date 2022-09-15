@@ -19,6 +19,16 @@ enum Person: String, CaseIterable {
     case krylove = "Player_Krylov"
     case glazunov = "Player_And_Rita"
     case sasha = "Player_Sasha"
+    case sergey = "Player_Sergey"
+    case masha = "Player_Masha"
+    case ed = "Player_Ed"
+    case sveta = "Player_Sveta"
+    case sam = "Player_Sam"
+    case casper = "Player_Casper"
+    case nick = "Player_Nic"
+    case marat = "Player_Marat"
+    case kostya = "Player_Kostya"
+    case gerald = "Player_Gerald"
 }
 
 class TalkController {
@@ -76,11 +86,31 @@ class TalkController {
         case .kriss:
             actions = krissActions()
         case .krylove:
-            actions = krissActions()
+            actions = kryloveActions()
         case .glazunov:
-            actions = krissActions()
+            actions = glazunovActions()
         case .sasha:
-            actions = krissActions()
+            actions = sashaActions()
+        case .sergey:
+            actions = sergeyActions()
+        case .masha:
+            actions = mashaActions()
+        case .ed:
+            actions = edActions()
+        case .sveta:
+            actions = svetaActions()
+        case .sam:
+            actions = samActions()
+        case .casper:
+            actions = casperActions()
+        case .nick:
+            actions = nickActions()
+        case .marat:
+            actions = maratActions()
+        case .kostya:
+            actions = costyaActions()
+        case .gerald:
+            actions = geraldActions()
         case .none:
             actions = [[]]
             assertionFailure("No person")
@@ -185,6 +215,130 @@ class TalkController {
             [.message(message: "Сладкая булочка, поздравляю тебя с твоим днем, очень скучаю и желаю всего самого самого, ты лучшее солнышко на свете.")],
             [.message(message: "Сильно ценю, что даже сквозь тысячи км и времени, мы остаёмся друзьями.")],
             [.message(message: "Люблю тебя и крепко обнимаю. А самое главное помни, расти большой, не будь лапшой! ❤️")],
+            [.hideMessage]
+        ]
+    }
+    
+    func kryloveActions() -> [[Action]] {
+        return [
+            [.message(message: "Йо, с дарэ Лидос!")],
+            [.message(message: "Половина полтинника это четвертак.")],
+            [.message(message: "А четвертак попахивает неплохим названием для твоего рэп карьеры.")],
+            [.message(message: "Главное в успешный рэп карьера, это здоровье, улыбка, охлажденное трахание.")],
+            [.message(message: "Не двигай путь. Успех!")],
+            [.hideMessage]
+        ]
+    }
+    
+    func glazunovActions() -> [[Action]] {
+        return [
+            [.message(message: "Андрей: Я: Эй, йо! Лида значит лидер!")],
+            [.message(message: "Поэтому ты ЛЕГОндарная!😏")],
+            [.message(message: "Оставайся такой же крэйзи шуга бэйбой с раскошным окружением и кайфовыми идеями.")],
+            [.message(message: "Ри: «красотка, с днём рождения! Люби и будь любимой❤️")],
+            [.message(message: "А главное, живи здесь и сейчас! Ююююхуууу")],
+            [.hideMessage]
+        ]
+    }
+    
+    func sashaActions() -> [[Action]] {
+        return [
+            [.message(message: "Лида, поздравляю тебя с днём рождения!")],
+            [.message(message: "Желаю быть самой счастливой и успешной в своих начинаниях.")],
+            [.message(message: "P.S. Можешь сколько угодно жить в Лондоне и наслаждаться работой...")],
+            [.message(message: "...но какой в этом толк, если мы все ещё не продаём энергетические камни на Бали.")],
+            [.message(message: "P.P.S. тебя не пустят в Украину потому что ты Бомба!")],
+            [.hideMessage]
+        ]
+    }
+    
+    func sergeyActions() -> [[Action]] {
+        return [
+            [.message(message: "С днём варенья, Лида! ")],
+            [.message(message: "Желаю тебе побольше приятных впечатлений от жизни")],
+            [.message(message: "Чтобы каждый день было куча всего интересного и вкусного вокруг! ")],
+            [.message(message: "Чтобы рядом были только самые кайфовые люди.")],
+            [.message(message: "И побольше тебе захватывающих путешествий!")],
+            [.message(message: "Всегда оставайся такой же жизнерадостной и позитивной! 🥳")],
+            [.hideMessage]
+        ]
+    }
+    
+    func mashaActions() -> [[Action]] {
+        return [
+            [.message(message: "Лида, с твоим днем!")],
+            [.message(message: "Всего тебе крутого в этом году, еще больше путешествий и enjoy Londonnn ❤️")],
+            [.hideMessage]
+        ]
+    }
+    
+    func edActions() -> [[Action]] {
+        return [
+            [.message(message: "Eсли я что то и знаю в жизни, то очень важно быть счастливым, и как можно больше!")],
+            [.message(message: "Желаю тебе, Лида, много мнгого счастья и всенепременно с ароматом больших денег!")],
+            [.hideMessage]
+        ]
+    }
+    
+    func svetaActions() -> [[Action]] {
+        return [
+            [.message(message: "Лииииидааааа! С днём рождения тебя, шикарная фенси-секси гёл.")],
+            [.message(message: "Я очень тебя люблю и желаю счастья на максималках. Ты лучшая и со всем справишься!")],
+            [.message(message: "Пусть год принесет тебе ярких событий, море удовольствия и кучу эмоций.")],
+            [.message(message: "Крепко обнимаю 💙")],
+            [.hideMessage]
+        ]
+    }
+    
+    func samActions() -> [[Action]] {
+        return [
+            [.message(message: "Ммм. Лида есть прекрасное, чудесное и осознанное мгновение лучшего образа себя")],
+            [.hideMessage]
+        ]
+    }
+    
+    func casperActions() -> [[Action]] {
+        return [
+            [.message(message: "Лида, ты самая секси вайбс чикса на планете Земля!")],
+            [.message(message: "Я тебя очень люблю и вспоминаю всегда нашу ночь у меня!")],
+            [.message(message: "С днем рождения крошка, пусть все будет лакшери просто!!!")],
+            [.hideMessage]
+        ]
+    }
+    
+    func nickActions() -> [[Action]] {
+        return [
+            [.message(message: "Лида, поздравляем тебя с днём рождения!")],
+            [.message(message: "Желаем, что бы вы отлично обустроились, нашли много крутых знакомых")],
+            [.message(message: "чтобы ты нашла самую классную работу в Лондоне, что бы все шло так,  как хотелось бы тебе. ")],
+            [.message(message: "Продолжай всех радовать в сторис потрясающими историями из своей жизни)")],
+            [.hideMessage]
+        ]
+    }
+    
+    func maratActions() -> [[Action]] {
+        return [
+            [.message(message: "Privet leeeeeeeeeeda")],
+            [.message(message: "Kak tut zdorovo u tebya v metaverse 🤩")],
+            [.message(message: "Pozdravlyayu s Dnem rozhdeniya! Vsegda ostavaysya samoy luchshey! Zhdem bolshe interesnyh stories 👏🏼")],
+            [.message(message: "Sorry za T9")],
+            [.message(message: "Press F")],
+            [.hideMessage]
+        ]
+    }
+    
+    func costyaActions() -> [[Action]] {
+        return [
+            [.message(message: "С днём рождения.")],
+            [.message(message: "Береги здоровье, не будь камнем, люблю!")],
+            [.hideMessage]
+        ]
+    }
+    
+    func geraldActions() -> [[Action]] {
+        return [
+            [.message(message: "Я \"asshole\" и не придумал текст")],
+            [.message(message: "Добавь, после этого с днём рождения")],
             [.hideMessage]
         ]
     }
