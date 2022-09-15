@@ -82,6 +82,9 @@ class GameScene: SKScene {
                 self.enterLidaland()
             case .showPostcard:
                 self.showKirillPostcard()
+            case .playHahaSound:
+                let sound = SKAction.playSoundFileNamed("haha.mp3", waitForCompletion: false)
+                self.run(sound)
             }
         }
     }
@@ -389,7 +392,7 @@ class GameScene: SKScene {
         
         self.kirillPostcard = node
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7, execute: {
             self.kirillPostcard?.removeFromParent()
         })
     }

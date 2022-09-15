@@ -18,6 +18,7 @@
 		9F6906DB28CFAD430090C62D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F6906DA28CFAD430090C62D /* Assets.xcassets */; };
 		9F6906DE28CFAD430090C62D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F6906DC28CFAD430090C62D /* LaunchScreen.storyboard */; };
 		9F83E2A728D372E300A5558D /* MickeyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F83E2A628D372E300A5558D /* MickeyNode.swift */; };
+		9F83E2AA28D39A5C00A5558D /* haha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F83E2A928D39A5C00A5558D /* haha.mp3 */; };
 		9FEDFA0228D27F600069E84D /* MainPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDFA0128D27F600069E84D /* MainPlayer.swift */; };
 		9FEDFA0428D284C60069E84D /* TalkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDFA0328D284C60069E84D /* TalkController.swift */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,7 @@
 		9F6906DA28CFAD430090C62D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F6906DD28CFAD430090C62D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F83E2A628D372E300A5558D /* MickeyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MickeyNode.swift; sourceTree = "<group>"; };
+		9F83E2A928D39A5C00A5558D /* haha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = haha.mp3; sourceTree = "<group>"; };
 		9FEDFA0128D27F600069E84D /* MainPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlayer.swift; sourceTree = "<group>"; };
 		9FEDFA0328D284C60069E84D /* TalkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +77,7 @@
 				9F6906D328CFAD410090C62D /* GameScene.swift */,
 				9F396E4628D24C0D00EACEB0 /* MessageNode.swift */,
 				9F6906D528CFAD410090C62D /* GameViewController.swift */,
+				9F83E2A828D39A5600A5558D /* Audio */,
 				9F83E2A528D372D700A5558D /* Players */,
 				9FEDFA0528D284D10069E84D /* Talk */,
 				9F6906D728CFAD410090C62D /* Main.storyboard */,
@@ -92,6 +95,14 @@
 				9F83E2A628D372E300A5558D /* MickeyNode.swift */,
 			);
 			path = Players;
+			sourceTree = "<group>";
+		};
+		9F83E2A828D39A5600A5558D /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				9F83E2A928D39A5C00A5558D /* haha.mp3 */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 		9FEDFA0528D284D10069E84D /* Talk */ = {
@@ -163,6 +174,7 @@
 				9F6906D928CFAD410090C62D /* Main.storyboard in Resources */,
 				9F6906D028CFAD410090C62D /* GameScene.sks in Resources */,
 				9F6906DB28CFAD430090C62D /* Assets.xcassets in Resources */,
+				9F83E2AA28D39A5C00A5558D /* haha.mp3 in Resources */,
 				9F6906DE28CFAD430090C62D /* LaunchScreen.storyboard in Resources */,
 				9F6906D228CFAD410090C62D /* Actions.sks in Resources */,
 			);
