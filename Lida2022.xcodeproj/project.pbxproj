@@ -20,6 +20,7 @@
 		9F83E2A728D372E300A5558D /* MickeyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F83E2A628D372E300A5558D /* MickeyNode.swift */; };
 		9F83E2AA28D39A5C00A5558D /* haha.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9F83E2A928D39A5C00A5558D /* haha.mp3 */; };
 		9FD668FB28D3D1E900FFA602 /* ConfigOverride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD668FA28D3D1E900FFA602 /* ConfigOverride.swift */; };
+		9FD668FD28D3E99600FFA602 /* hb_song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9FD668FC28D3E99500FFA602 /* hb_song.mp3 */; };
 		9FEDFA0228D27F600069E84D /* MainPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDFA0128D27F600069E84D /* MainPlayer.swift */; };
 		9FEDFA0428D284C60069E84D /* TalkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDFA0328D284C60069E84D /* TalkController.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		9F83E2A628D372E300A5558D /* MickeyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MickeyNode.swift; sourceTree = "<group>"; };
 		9F83E2A928D39A5C00A5558D /* haha.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = haha.mp3; sourceTree = "<group>"; };
 		9FD668FA28D3D1E900FFA602 /* ConfigOverride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigOverride.swift; sourceTree = "<group>"; };
+		9FD668FC28D3E99500FFA602 /* hb_song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = hb_song.mp3; sourceTree = "<group>"; };
 		9FEDFA0128D27F600069E84D /* MainPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlayer.swift; sourceTree = "<group>"; };
 		9FEDFA0328D284C60069E84D /* TalkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 		9F83E2A828D39A5600A5558D /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9FD668FC28D3E99500FFA602 /* hb_song.mp3 */,
 				9F83E2A928D39A5C00A5558D /* haha.mp3 */,
 			);
 			path = Audio;
@@ -178,6 +181,7 @@
 				9F6906D028CFAD410090C62D /* GameScene.sks in Resources */,
 				9F6906DB28CFAD430090C62D /* Assets.xcassets in Resources */,
 				9F83E2AA28D39A5C00A5558D /* haha.mp3 in Resources */,
+				9FD668FD28D3E99600FFA602 /* hb_song.mp3 in Resources */,
 				9F6906DE28CFAD430090C62D /* LaunchScreen.storyboard in Resources */,
 				9F6906D228CFAD410090C62D /* Actions.sks in Resources */,
 			);

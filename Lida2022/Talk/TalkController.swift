@@ -43,6 +43,7 @@ class TalkController {
         case showPostcard
         case playHahaSound
         case doMushroom
+        case startHBSong
     }
     
     var action: ((Action) -> Void)?
@@ -338,7 +339,7 @@ class TalkController {
         return [
             [.message(message: "Я \"asshole\" и не придумал текст")],
             [.message(message: "Добавь, после этого с днём рождения")],
-            [.hideMessage]
+            [.hideMessage, .startHBSong]
         ]
     }
 }

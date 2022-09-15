@@ -13,8 +13,8 @@ class GameScene: SKScene {
     
 //    private var label : SKLabelNode?
     
-//    var playerXPoint: CGFloat = 1000
-    var playerXPoint: CGFloat = -100
+//    var playerXPoint: CGFloat = -100
+    var playerXPoint: CGFloat = 10000
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
@@ -22,7 +22,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-//        enterLidalandShort()
+        enterLidalandShort()
         
         self.connectVirtualController()
         
@@ -89,6 +89,8 @@ class GameScene: SKScene {
                 self.run(sound)
             case .doMushroom:
                 self.doMushroom()
+            case .startHBSong:
+                self.startHBSong()
             }
         }
     }
@@ -333,6 +335,24 @@ class GameScene: SKScene {
         }
     }
     
+    func playFirework2() {
+        // create node that play textures
+        let node = SKSpriteNode(imageNamed: "firework_0")
+        node.zPosition = 15
+        node.position = CGPoint(x: 10560, y: 0)
+        node.setScale(self.size.height / node.size.height)
+        var frames: [SKTexture] = []
+        for i in 0..<74 {
+            frames.append(SKTexture(imageNamed: "firework_\(i)"))
+        }
+        self.addChild(node)
+        node.run(SKAction.repeatForever(SKAction.animate(with: frames, timePerFrame: 0.04)))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 12, execute: {
+            node.removeFromParent()
+        })
+    }
+    
     func playCoins() {
         // create node that play textures
         let node = SKSpriteNode(imageNamed: "coins_50")
@@ -466,5 +486,19 @@ class GameScene: SKScene {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             self.mushroomExists = true
         })
+    }
+    
+    var isHPSongStarted = false
+    
+    func startHBSong() {
+        if self.isHPSongStarted {
+            return
+        }
+        self.isHPSongStarted = true
+        
+        self.playFirework2()
+        
+        let sound = SKAction.playSoundFileNamed("hb_song.mp3", waitForCompletion: false)
+        self.run(sound)
     }
 }
