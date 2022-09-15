@@ -71,6 +71,8 @@ class GameScene: SKScene {
                 self.activeFriend?.hideMessage()
             case .playCoins:
                 self.playCoins()
+            case .showMickey:
+                self.showMickey()
             }
         }
     }
@@ -235,7 +237,7 @@ class GameScene: SKScene {
         // create node that play textures
         let node = SKSpriteNode(imageNamed: "coins_50")
         node.zPosition = 15
-        node.position = CGPoint(x: 400, y: 0)
+        node.position = CGPoint(x: 1857, y: 0)
         node.setScale(self.size.height / node.size.height)
         var frames: [SKTexture] = []
         for i in 1..<105 {
@@ -247,5 +249,35 @@ class GameScene: SKScene {
         }
     }
     
+    var mickeyNode: MickeyNode?
     
+    func showMickey() {
+        mickeyNode?.removeFromParent()
+        
+        let node = MickeyNode()
+        let maxNodePosition = self.friends.first(where: { $0.name?.contains("Max") ?? false })?.position ?? .zero
+        
+        node.position = CGPoint(
+            x: maxNodePosition.x + 300,
+            y: maxNodePosition.y + 50
+        )
+        
+        self.addChild(node)
+        node.setScale(0)
+        
+        let scaleXAction = SKAction.scaleX(to: -1.0, duration: 2)
+        let scaleYAction = SKAction.scaleY(to: 1.0, duration: 2)
+        
+        let topAction = SKAction.moveBy(x: 0, y: 100, duration: 1)
+        topAction.timingMode = .easeOut
+        let bottomAction = SKAction.moveBy(x: 0, y: -200, duration: 1)
+        bottomAction.timingMode = .easeIn
+        let moveAction = SKAction.sequence([topAction, bottomAction])
+        
+        node.run(moveAction)
+        node.run(scaleXAction)
+        node.run(scaleYAction)
+        
+        self.mickeyNode = node
+    }
 }
