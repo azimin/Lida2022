@@ -34,7 +34,7 @@ class GameScene: SKScene {
 //        }
         
         var frame = self.frame
-        frame.size.width += 11000
+        frame.size.width += 10400
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         self.physicsBody?.categoryBitMask = 0b0111
 
