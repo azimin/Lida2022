@@ -13,6 +13,7 @@ enum Person: String, CaseIterable {
     case shura = "Player_Shura"
     case kirillAv = "Player_Kirill"
     case grishaIlvina = "Player_Grisha_Ilvina"
+    case kirillMar = "Player_Kirill_Mar"
 }
 
 class TalkController {
@@ -62,6 +63,8 @@ class TalkController {
             actions = kirillAvActions()
         case .grishaIlvina:
             actions = grishaIlvinaActions()
+        case .kirillMar:
+            actions = kirillMarActions()
         case .none:
             actions = [[]]
             assertionFailure("No person")
@@ -132,6 +135,14 @@ class TalkController {
             [.message(message: "Пусть берегут Вас в семье, как жемчужину,\nДарят заботу, уют и покой.")],
             [.message(message: "Все это Вами, конечно, заслужено,\nЗа Ваш характер такой золотой.")],
             [.hideMessage, .showPostcard]
+        ]
+    }
+    
+    func kirillMarActions() -> [[Action]] {
+        return [
+            [.message(message: "Лииида ты прекрасна!")],
+            [.message(message: "Больше тебе танцев и мур мур мур. Приезжайте в гости!")],
+            [.hideMessage]
         ]
     }
     

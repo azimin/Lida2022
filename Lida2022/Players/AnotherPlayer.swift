@@ -84,7 +84,8 @@ class AnotherPlayer: SKSpriteNode {
         self.addChild(messageNode)
         
         if self.chatSide {
-            messageNode.position = CGPoint(x: self.frame.width + 40, y: 0)
+            let move = (self.userData?.object(forKey: "chatSideMove") as? Int) ?? 0
+            messageNode.position = CGPoint(x: self.frame.width + 40 + CGFloat(move), y: 0)
         } else {
             messageNode.position = CGPoint(x: -50, y: self.frame.height - 20)
         }
