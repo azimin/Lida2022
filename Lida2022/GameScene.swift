@@ -374,9 +374,18 @@ class GameScene: SKScene {
         
         let node = SKSpriteNode(imageNamed: "Kirill_Postacard")
         node.zPosition = 10
-        node.position = CGPoint(x: 2540, y: 200)
-        node.setScale(1.15)
+        node.position = CGPoint(x: 2540, y: -200)
+        node.setScale(0)
         self.addChild(node)
+        
+        let zoom = SKAction.scale(to: 1.15, duration: 0.8)
+        zoom.timingMode = .easeIn
+        
+        let move = SKAction.moveTo(y: 200, duration: 0.8)
+        move.timingMode = .easeIn
+        
+        node.run(zoom)
+        node.run(move)
         
         self.kirillPostcard = node
         
