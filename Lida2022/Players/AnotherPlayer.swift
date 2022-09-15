@@ -43,8 +43,13 @@ class AnotherPlayer: SKSpriteNode {
     
     var isShowing: Bool = false
     var isMessageDisplayed: Bool = false
+    var isActionBlocked = false {
+        didSet {
+            self.displayInteraction(isShowing: self.isShowing, force: true)
+        }
+    }
     
-    func displayInteraction(isShowing: Bool) {
+    func displayInteraction(isShowing: Bool, force: Bool = false) {
         var isShowing = isShowing
         
         if self.isMessageDisplayed {
@@ -53,6 +58,10 @@ class AnotherPlayer: SKSpriteNode {
         
         if (self.isShowing != isShowing) {
             self.isShowing = isShowing
+        }
+        
+        if self.isActionBlocked {
+            isShowing = false
         }
         
         self.interactionNode.isHidden = !isShowing

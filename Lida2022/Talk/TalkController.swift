@@ -19,6 +19,7 @@ class TalkController {
     enum Action {
         case message(message: String)
         case hideMessage
+        case enterLidaland
         case playCoins
         case showMickey
     }
@@ -72,14 +73,25 @@ class TalkController {
         self.increaseCounter(name: name)
     }
     
+    var enteredLidaLandFlag = false
+    
     func alexActions() -> [[Action]] {
-        return [
-            [.message(message: "Привет Лида, это ЛИДАЛЕНД!!!!!")],
-            [.message(message: "Тут ты можешь найти поздравления и интерактив твоих друзей")],
-            [.message(message: "А еще тут всякие пасхалки")],
-            [.message(message: "Попробуй нажать 'A' еще раз, будет интерактив")],
-            [.hideMessage, .playCoins]
-        ]
+        if (enteredLidaLandFlag) {
+            return [
+                [.message(message: "Да, это ЛИДАЛЕНД!!!!!")],
+                [.message(message: "Тут ты можешь найти поздравления и интерактив твоих друзей")],
+                [.message(message: "А еще тут всякие пасхалки")],
+                [.hideMessage]
+            ]
+        } else {
+            return [
+                [.message(message: "Привет Лида, это ЛИДАЛЕНД!!!!!")],
+                [.message(message: "Тут ты можешь найти поздравления и интерактив твоих друзей")],
+                [.message(message: "А еще тут всякие пасхалки")],
+                [.message(message: "Готова отправиться туда?")],
+                [.hideMessage, .enterLidaland]
+            ]
+        }
     }
     
     func maxActions() -> [[Action]] {

@@ -13,7 +13,8 @@ class GameScene: SKScene {
     
 //    private var label : SKLabelNode?
     
-    var playerXPoint: CGFloat = 1000
+//    var playerXPoint: CGFloat = 1000
+    var playerXPoint: CGFloat = 200
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
@@ -45,6 +46,8 @@ class GameScene: SKScene {
         
         self.addPlayer()
         
+        self.alex = self.childNode(withName: "//Player_Alex") as? AnotherPlayer
+        
         let names: [String] = ["Player_Alex", "Player_Max", "Player_Shura"]
         for name in names {
             if let player = self.childNode(withName: "//" + name) as? AnotherPlayer {
@@ -73,6 +76,8 @@ class GameScene: SKScene {
                 self.playCoins()
             case .showMickey:
                 self.showMickey()
+            case .enterLidaland:
+                self.enterLidaland()
             }
         }
     }
@@ -117,12 +122,13 @@ class GameScene: SKScene {
     }
     
     var player: MainPlayer!
+    var alex: AnotherPlayer!
     
     func addPlayer() {
         let player = MainPlayer.create()
         player.position = CGPoint(x: self.playerXPoint, y: 100)
 //        player.size = CGSize(width: 140, height: 140)
-        player.zPosition = 10
+        player.zPosition = 12
 
         addChild(player)
         self.player = player
@@ -229,7 +235,48 @@ class GameScene: SKScene {
     
     func pressAButton() {
         if let activeFriend = self.activeFriend {
-            TalkController.shared.talkToSomeone(name: activeFriend.name ?? "")
+            if !activeFriend.isActionBlocked {
+                TalkController.shared.talkToSomeone(name: activeFriend.name ?? "")
+            }
+        }
+    }
+    
+    var bgAnimation1: [SKTexture] = {
+        var result: [SKTexture] = []
+        for i in 0...30 {
+            result.append(.init(imageNamed: "bg_start_anim_1_\(i)"))
+        }
+        return result
+    }()
+    
+    var bgAnimation2: [SKTexture] = {
+        var result: [SKTexture] = []
+        for i in 0...30 {
+            result.append(.init(imageNamed: "bg_start_anim_2_\(i)"))
+        }
+        return result
+    }()
+    
+    var enterdLidaLand = false
+    
+    func enterLidaland() {
+        TalkController.shared.enteredLidaLandFlag = true
+        self.alex.isActionBlocked = true
+        
+        if let background = self.childNode(withName: "//Background_1") {
+            background.run(SKAction.repeatForever(SKAction.animate(with: self.bgAnimation1, timePerFrame: 0.06)))
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                background.removeAllActions()
+                background.run(SKAction.repeatForever(SKAction.animate(with: self.bgAnimation2, timePerFrame: 0.06)))
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+                    background.removeFromParent()
+                    if let wall = self.childNode(withName: "//First_Blocker") {
+                        wall.removeFromParent()
+                    }
+                    self.alex.showMessage(text: "Добро пожаловать и проходи дальше")
+                    self.alex.isActionBlocked = false
+                })
+            })
         }
     }
     
