@@ -17,10 +17,15 @@ class AnotherPlayer: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let playerName = (self.userData?.object(forKey: "name") as? String) ?? ""
-        let scale = (self.userData?.object(forKey: "scale") as? Float) ?? 1
-        let yMove = (self.userData?.object(forKey: "yMove") as? Int) ?? 0
+        let playerName = self.name ?? ""
+        var scale = (self.userData?.object(forKey: "scale") as? Float) ?? 1
+        var yMove = (self.userData?.object(forKey: "yMove") as? Int) ?? 0
         self.chatSide = (self.userData?.object(forKey: "chatSide") as? Bool) ?? false
+        
+        if let override = ConfigOverride.override[playerName] {
+            scale = Float(override.scale ?? CGFloat(scale))
+            yMove = override.yMove ?? yMove
+        }
         
         let player = SKSpriteNode(imageNamed: playerName)
         player.setScale(CGFloat(scale))

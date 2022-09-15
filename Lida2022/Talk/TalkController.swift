@@ -16,6 +16,9 @@ enum Person: String, CaseIterable {
     case kirillMar = "Player_Kirill_Mar"
     case nikolay = "Player_Nikolay"
     case kriss = "Player_Kriss"
+    case krylove = "Player_Krylov"
+    case glazunov = "Player_And_Rita"
+    case sasha = "Player_Sasha"
 }
 
 class TalkController {
@@ -71,6 +74,12 @@ class TalkController {
         case .nikolay:
             actions = nikolayActions()
         case .kriss:
+            actions = krissActions()
+        case .krylove:
+            actions = krissActions()
+        case .glazunov:
+            actions = krissActions()
+        case .sasha:
             actions = krissActions()
         case .none:
             actions = [[]]
