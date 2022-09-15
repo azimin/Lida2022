@@ -13,6 +13,8 @@ class GameScene: SKScene {
     
 //    private var label : SKLabelNode?
     
+    var playerXPoint: CGFloat = 1000
+    
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
     var jumpButton: SKNode?
@@ -43,7 +45,7 @@ class GameScene: SKScene {
         
         self.addPlayer()
         
-        let names: [String] = ["Player_Alex", "Player_Max"]
+        let names: [String] = ["Player_Alex", "Player_Max", "Player_Shura"]
         for name in names {
             if let player = self.childNode(withName: "//" + name) as? AnotherPlayer {
                 self.friends.append(player)
@@ -116,7 +118,7 @@ class GameScene: SKScene {
     
     func addPlayer() {
         let player = MainPlayer.create()
-        player.position = CGPoint(x: -100, y: 100)
+        player.position = CGPoint(x: self.playerXPoint, y: 100)
 //        player.size = CGSize(width: 140, height: 140)
         player.zPosition = 10
 

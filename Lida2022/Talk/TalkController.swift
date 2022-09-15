@@ -19,11 +19,14 @@ class TalkController {
     var action: ((Action) -> Void)?
     
     var alexAction = 0
+    var maxAction = 0
     
     func exitSomeone(name: String) {
         switch name {
         case "Player_Alex":
             self.alexAction = 0
+        case "Player_Max":
+            self.maxAction = 0
         default:
             break
         }
@@ -33,9 +36,32 @@ class TalkController {
         switch name {
         case "Player_Alex":
             self.actionTalkWithAlex()
+        case "Player_Max":
+            self.actionTalkWithMax()
         default:
             break
         }
+    }
+    
+    func actionTalkWithMax() {
+        switch maxAction {
+        case 0:
+            self.action?(.message(message: "Привет Лида, это ЛИДАЛЕНД!!!!!"))
+        case 1:
+            self.action?(.message(message: "Тут ты можешь найти поздравления и интерактив твоих друзей"))
+        case 2:
+            self.action?(.message(message: "А еще тут всякие пасхалки"))
+        case 3:
+            self.action?(.message(message: "Попробуй нажать 'A' еще раз, будет интерактив"))
+        case 4:
+            self.action?(.hideMessage)
+            self.action?(.playCoins)
+            maxAction = -1
+        default:
+            maxAction = -1
+        }
+        
+        maxAction += 1
     }
     
     func actionTalkWithAlex() {

@@ -12,12 +12,15 @@ class AnotherPlayer: SKSpriteNode {
     var messageNode: MessageNode?
     var interactionNode: SKSpriteNode!
     
+    var chatSide: Bool = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         let playerName = (self.userData?.object(forKey: "name") as? String) ?? ""
         let scale = (self.userData?.object(forKey: "scale") as? Float) ?? 1
         let yMove = (self.userData?.object(forKey: "yMove") as? Int) ?? 0
+        self.chatSide = (self.userData?.object(forKey: "chatSide") as? Bool) ?? false
         
         let player = SKSpriteNode(imageNamed: playerName)
         player.setScale(CGFloat(scale))
@@ -30,7 +33,7 @@ class AnotherPlayer: SKSpriteNode {
         self.addChild(self.interactionNode)
         
         let scaleUpAction = SKAction.scale(by: 1.5, duration: 0.5)
-        let scaleDownAction = SKAction.scale(by: 0.667, duration: 0.5)
+        let scaleDownAction = SKAction.scale(by: 0.66667, duration: 0.5)
         let action = SKAction.sequence([scaleUpAction, scaleDownAction])
         action.timingMode = .easeInEaseOut
         
@@ -68,10 +71,15 @@ class AnotherPlayer: SKSpriteNode {
         self.isMessageDisplayed = true
         self.displayInteraction(isShowing: false)
         
-        let messageNode = MessageNode(text: text)
+        let messageNode = MessageNode(text: text, isSide: self.chatSide)
         self.addChild(messageNode)
-        print(self.frame)
-        messageNode.position = CGPoint(x: -50, y: self.frame.height - 20)
+        
+        if self.chatSide {
+            messageNode.position = CGPoint(x: self.frame.width + 40, y: 0)
+        } else {
+            messageNode.position = CGPoint(x: -50, y: self.frame.height - 20)
+        }
+    
         self.messageNode = messageNode
         
         self.isZoneEntered = true

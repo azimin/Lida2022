@@ -12,10 +12,10 @@ class MessageNode: SKNode {
     var backgroundNode: SKSpriteNode!
     var interactionNode: SKSpriteNode!
     
-    init(text: String) {
+    init(text: String, isSide: Bool) {
         super.init()
         
-        let image = UIImage(named: "Chat_Bubble")!
+        let image = UIImage(named: isSide ? "Chat_Bubble_S" : "Chat_Bubble")!
         let texture = SKTexture(image: image)
         let node = SKSpriteNode(texture: texture)
         node.centerRect = CGRect(x: 0.5, y: 0.5, width: 0.1, height: 0.1)
