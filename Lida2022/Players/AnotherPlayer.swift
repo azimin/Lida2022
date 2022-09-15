@@ -13,6 +13,7 @@ class AnotherPlayer: SKSpriteNode {
     var interactionNode: SKSpriteNode!
     
     var chatSide: Bool = false
+    var player: SKSpriteNode!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -32,6 +33,7 @@ class AnotherPlayer: SKSpriteNode {
         player.position = CGPoint(x: player.position.x, y: player.position.y + CGFloat(yMove))
         self.size = player.frame.size
         self.addChild(player)
+        self.player = player
         
         self.interactionNode = SKSpriteNode(imageNamed: "Interaction_Badge")
         self.interactionNode.position = CGPoint(x: 0, y: self.frame.height - 15)
@@ -99,5 +101,17 @@ class AnotherPlayer: SKSpriteNode {
         self.messageNode = messageNode
         
         self.isZoneEntered = true
+    }
+    
+    func startEdAnimation() {
+        let frames: [SKTexture] = [
+            .init(imageNamed: "ed_1"),
+            .init(imageNamed: "ed_2"),
+            .init(imageNamed: "ed_3"),
+            .init(imageNamed: "ed_4"),
+            .init(imageNamed: "ed_5"),
+            .init(imageNamed: "ed_6")
+        ]
+        self.player.run(SKAction.repeatForever(SKAction.animate(with: frames, timePerFrame: 0.1)))
     }
 }

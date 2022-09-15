@@ -155,7 +155,8 @@ class TalkController {
         return [
             [.message(message: "Вау, Лидаленд такой классный, никак не могу здесь разобраться. Не то что в Дисснейленде.")],
             [.message(message: "Так много всего интересного, но я решил присесть тут пока что отдохнуть.")],
-            [.hideMessage, .showMickey]
+            [.message(message: "Лииииииииииида, С Днем Рождения!"), .showMickey],
+            [.hideMessage]
         ]
     }
     

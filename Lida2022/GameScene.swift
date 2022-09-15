@@ -49,6 +49,8 @@ class GameScene: SKScene {
         self.addPlayer()
         
         self.alex = self.childNode(withName: "//Player_Alex") as? AnotherPlayer
+        let ed = self.childNode(withName: "//Player_Ed") as? AnotherPlayer
+        ed?.startEdAnimation()
         
         let names: [String] = Person.allCases.map({ $0.rawValue })
         for name in names {
