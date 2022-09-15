@@ -29,8 +29,9 @@ class GameScene: SKScene {
 //        }
         
         var frame = self.frame
-        frame.size.width += 1000
+        frame.size.width += 3000
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        self.physicsBody?.categoryBitMask = 0b0111
 
         // Add camera node
         let cameraNode = SKCameraNode()
@@ -78,6 +79,13 @@ class GameScene: SKScene {
         // Called before each frame is rendered
         moveCharacter()
         
+        
+        if (self.player.physicsBody?.velocity.dy ?? 0) < -200 {
+            self.player.physicsBody?.collisionBitMask = 2
+        } else if (self.player.physicsBody?.velocity.dy ?? 0) > 200 {
+            self.player.physicsBody?.collisionBitMask = 1
+        }
+        
         for friend in self.friends {
             var shouldRemoveAsset = false
             
@@ -95,6 +103,8 @@ class GameScene: SKScene {
             if shouldRemoveAsset {
                 if self.activeFriend == friend {
                     self.activeFriend?.hideMessage()
+                    self.activeFriend?.isZoneEntered = false
+                    TalkController.shared.exitSomeone(name: self.activeFriend?.name ?? "")
                     self.activeFriend = nil
                 }
                 friend.displayInteraction(isShowing: false)
@@ -209,7 +219,7 @@ class GameScene: SKScene {
     func pressBButton() {
         self.jumpButton?.removeFromParent()
         if self.player.physicsBody?.allContactedBodies().first?.node != nil {
-            self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 400))
+            self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 450))
         }
     }
     
@@ -234,4 +244,6 @@ class GameScene: SKScene {
             node.removeFromParent()
         }
     }
+    
+    
 }

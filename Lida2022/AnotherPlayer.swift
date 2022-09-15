@@ -17,9 +17,11 @@ class AnotherPlayer: SKSpriteNode {
         
         let playerName = (self.userData?.object(forKey: "name") as? String) ?? ""
         let scale = (self.userData?.object(forKey: "scale") as? Float) ?? 1
+        let yMove = (self.userData?.object(forKey: "yMove") as? Int) ?? 0
         
         let player = SKSpriteNode(imageNamed: playerName)
         player.setScale(CGFloat(scale))
+        player.position = CGPoint(x: player.position.x, y: player.position.y + CGFloat(yMove))
         self.size = player.frame.size
         self.addChild(player)
         
@@ -58,6 +60,8 @@ class AnotherPlayer: SKSpriteNode {
         self.isMessageDisplayed = false
     }
     
+    var isZoneEntered = false
+    
     func showMessage(text: String) {
         self.hideMessage()
         
@@ -69,5 +73,7 @@ class AnotherPlayer: SKSpriteNode {
         print(self.frame)
         messageNode.position = CGPoint(x: -50, y: self.frame.height - 20)
         self.messageNode = messageNode
+        
+        self.isZoneEntered = true
     }
 }

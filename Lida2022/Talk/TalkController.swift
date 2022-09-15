@@ -20,6 +20,15 @@ class TalkController {
     
     var alexAction = 0
     
+    func exitSomeone(name: String) {
+        switch name {
+        case "Player_Alex":
+            self.alexAction = 0
+        default:
+            break
+        }
+    }
+    
     func talkToSomeone(name: String) {
         switch name {
         case "Player_Alex":
