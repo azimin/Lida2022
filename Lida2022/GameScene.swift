@@ -14,8 +14,8 @@ class GameScene: SKScene {
     
 //    private var label : SKLabelNode?
     
-//    var playerXPoint: CGFloat = -100
-    var playerXPoint: CGFloat = 10000
+    var playerXPoint: CGFloat = -100
+//    var playerXPoint: CGFloat = 10000
     
     var virtualController: GCVirtualController?
     var friends: [AnotherPlayer] = []
@@ -23,11 +23,11 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
-        enterLidalandShort()
+//        enterLidalandShort()
         
         self.connectVirtualController()
         
-        self.playMusic()
+        // self.playMusic()
         
         // Get label node from scene and store it for use later
 //        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
@@ -230,7 +230,7 @@ class GameScene: SKScene {
         for controller in GCController.controllers() {
             activeControllers.append(controller)
             
-            if (controller.vendorName == "Gamepad") {
+            if (controller.vendorName == "Gamepad" || (controller.vendorName ?? "").contains("Joy-Con")) {
                 self.virtualController?.disconnect()
             }
             
@@ -518,7 +518,8 @@ class GameScene: SKScene {
         do {
             self.musicPlayer = try AVAudioPlayer(contentsOf: url!)
             self.musicPlayer?.numberOfLoops = -1
-            self.musicPlayer?.volume = 0.3
+            self.musicPlayer?.volume = 0.4
+            self.musicPlayer?.currentTime = 3
             guard let musicPlayer = self.musicPlayer else { return }
 
             musicPlayer.prepareToPlay()
